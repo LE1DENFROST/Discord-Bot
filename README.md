@@ -1,4 +1,4 @@
 - User deletion, silencing, banning system available.
-- To use Google Generative AI, it can be accessed through the bot by entering the api key.
+- To Google Generative AI, it can be accessed through the bot by entering the api key.
 - There is a quiz game that is played by interacting with discord users using questions from Global databases on the internet.
 - After downloading the relevant libraries, making the database connection and entering the API information, you can run the bot by adding it to your discord server.
