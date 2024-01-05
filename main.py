@@ -270,13 +270,10 @@ async def quiz(ctx):
 @commands.has_permissions(administrator=True)
 async def sifirla_xp(ctx, member: discord.Member):
     conn, cursor = open_connection()
-    # Kullanıcının Discord ID'sini al
     discord_user_id = str(member.id)
     sql_command = f"UPDATE UserXP SET XP = 0 WHERE DiscordUserID = '{discord_user_id}';"
     cursor.execute(sql_command)
     conn.commit()
-
-    # Veritabanı bağlantısını kapat
     close_connection(conn)
 
     await ctx.send(f"{member.mention}'in XP'si sıfırlandı.")
@@ -289,7 +286,6 @@ async def sifirla_xp(ctx, member: discord.Member):
 @commands.has_permissions(administrator=True)
 async def reset_xp_table(ctx):
     conn, cursor = open_connection()
-    # Tüm kullanıcıların XP'lerini sıfırla
     sql_command = "UPDATE UserXP SET XP = 0;"
     cursor.execute(sql_command)
     conn.commit()
@@ -436,7 +432,7 @@ async def hatirlaticilari_kontrol_et():
     for hatirlatma in hatirlaticilar:
         saat, mesaj, kullanici, sunucu = hatirlatma
         if now.hour == saat.hour and now.minute == saat.minute:
-            kanal = sunucu.get_channel(769850792429486090)  # Kanal ID'sini doğru bir şekilde değiştirin
+            kanal = sunucu.get_channel(769850792429486090) 
             embed = discord.Embed(description=f"**{kullanici.mention}, hatırlatma: {mesaj}**",color=0xCCCCCC)    
             await kanal.send(embed = embed)
 
@@ -634,7 +630,7 @@ async def at(ctx, member: discord.Member):
 @commands.has_permissions(administrator=True)
 async def sustur(ctx, member: discord.Member, *args):
     sure = None
-    zaman_birimi = "saniye"  # Varsayılan zaman birimi
+    zaman_birimi = "saniye" 
     for i in range(len(args)):
         if args[i].isdigit():
             sure = int(args[i])
@@ -647,12 +643,10 @@ async def sustur(ctx, member: discord.Member, *args):
     if sure is None:
         await ctx.send("Süre belirtilmedi. Örnek: -sustur @Kullanıcı 10 saniye")
         return
-    # Süre birimine göre dönüştürme
     if zaman_birimi == "dakika":
-        sure *= 60  # Dakika cinsinden süre
+        sure *= 60  
     elif zaman_birimi == "saat":
-        sure *= 3600  # Saat cinsinden süre
-    # Artık 'sure' değişkeni kullanılabilir (saniye cinsinden)
+        sure *= 3600  
     x = "saniye"
     muted_role = discord.utils.get(ctx.guild.roles, name="Muted")
     if not muted_role:
@@ -697,9 +691,9 @@ async def sil(ctx, miktar: int):
         embed = discord.Embed(description="**Geçersiz miktar. Pozitif bir tam sayı belirtmelisiniz.**",color=0xCCCCCC)
         await ctx.send(embed = embed)
         return
-    deleted = await ctx.channel.purge(limit=miktar + 1)  # +1, komut mesajını da silmek içindir
+    deleted = await ctx.channel.purge(limit=miktar + 1)  
     embed = discord.Embed(description=f"**{len(deleted) - 1} mesaj silindi.**",color=0xCCCCCC)
-    await ctx.send(embed = embed)  # -1, komut mesajını düşer
+    await ctx.send(embed = embed) 
 
 
 # iq ölçer <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
